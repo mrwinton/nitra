@@ -92,7 +92,7 @@ module Nitra
         end
         trap("SIGINT") do
           channel.write("command" => "error", "process" => "trap", "text" => 'Received SIGINT', "on" => on)
-          Process.kill("SIGKILL", Process.pid) 
+          Process.kill("SIGKILL", Process.pid)
         end
 
         channel.write("command" => "starting", "framework" => self.class.framework_name, "on" => on)
@@ -221,7 +221,7 @@ module Nitra
           "framework" => self.class.framework_name,
           "filename"  => filename,
           "on"        => on,
-          "text"      => result["failure"] ? io.string : "",
+          "text"      => result["failure"] || result["info"] ? io.string : "",
         })
 
       rescue RetryException

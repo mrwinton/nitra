@@ -9,6 +9,8 @@ class Nitra::Master
       map_files_to_frameworks(files)
       @configuration.frameworks = files_by_framework
     end
+
+    add_executable_files if configuration.executable_files.any?
   end
 
   def run
@@ -98,6 +100,10 @@ protected
       result[framework_name] = files unless files.empty?
       result
     end
+  end
+
+  def add_executable_files
+    @files_by_framework.merge!("executable" => configuration.executable_files)
   end
 
   def files_remaining

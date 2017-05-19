@@ -29,6 +29,13 @@ module Nitra
           configuration.debug = true
         end
 
+        opts.on("--exec-files [FILE1,FILE2]", Array,
+                "Run specified executable files.",
+                "Files should be specified relative to the root of the project. E.g. \"bin/rubocop\""
+               ) do |filenames|
+          configuration.add_executable_files(filenames)
+        end
+
         opts.on("-p", "--print-failures", "Print failures immediately when they occur") do
           configuration.print_failures = true
         end

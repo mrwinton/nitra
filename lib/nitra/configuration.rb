@@ -3,13 +3,14 @@ require 'nitra/utils'
 module Nitra
   class Configuration
     attr_accessor :debug, :quiet, :print_failures, :burndown_report, :rake_tasks, :split_files, :start_framework, :exceptions_to_retry, :max_attempts
-    attr_accessor :process_count, :environment, :slaves, :slave_mode, :frameworks
+    attr_accessor :process_count, :environment, :slaves, :slave_mode, :frameworks, :executable_files
 
     def initialize
       self.environment = "test"
       self.slaves = []
       self.rake_tasks = {}
       self.frameworks = {}
+      self.executable_files = []
       self.max_attempts = 5
       calculate_default_process_count
     end
@@ -20,6 +21,10 @@ module Nitra
 
     def add_rake_task(name, list)
       rake_tasks[name] = list
+    end
+
+    def add_executable_files(files)
+      self.executable_files += files
     end
 
     def add_slave(command)
